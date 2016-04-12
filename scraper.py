@@ -58,4 +58,4 @@ with open('tournaments.csv') as f:
     reader.next() #toss the header row
     tournaments = [readTournamentPlayers(row) for row in reader]
 
-parseTournament(**tournaments[0])
+[parseTournament(**tournament) for tournament in tournaments]
