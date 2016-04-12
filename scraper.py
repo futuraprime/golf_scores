@@ -16,6 +16,13 @@ def parseTable(table, playerId, tournamentId):
     for i,x in enumerate(data[0]):
         if not x.text.isdigit():
             continue
+
+        # skip any weird values
+        try:
+            int(data[2][i].text)
+        except ValueError as err:
+            continue
+
         row = {
             'playerId' : playerId,
             'tournamentId' : tournamentId,
@@ -57,5 +64,8 @@ with open('tournaments.csv') as f:
     reader = csv.reader(f)
     reader.next() #toss the header row
     tournaments = [readTournamentPlayers(row) for row in reader]
+
+# print parsePlayer(142, 15)
+# print parsePlayer(309, 686)
 
 [parseTournament(**tournament) for tournament in tournaments]
